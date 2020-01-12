@@ -18,11 +18,11 @@
 gomon:latest:
   extends: .docker
   before_script:
-    - cd 1.1.0-golang1.11-alpine3.8/
+    - cd 1.1.0-golang1.13-alpine3.10-genstructgolang0.0.3/
   only:
     changes:
-      - 1.1.0-golang1.11-alpine3.8/*
-      - 1.1.0-golang1.11-alpine3.8/**/*
+      - 1.1.0-golang1.13-alpine3.10-genstructgolang0.0.3/*
+      - 1.1.0-golang1.13-alpine3.10-genstructgolang0.0.3/**/*
 
 gomon:1.1.0-golang1.11.1:
   extends: .docker
@@ -41,3 +41,12 @@ gomon:1.1.0-golang1.11-alpine3.8:
     changes:
       - 1.1.0-golang1.11-alpine3.8/*
       - 1.1.0-golang1.11-alpine3.8/**/*
+
+gomon:1.1.0-golang1.13-alpine3.10-genstructgolang0.0.3:
+  extends: .docker
+  before_script:
+    - cd 1.1.0-golang1.13-alpine3.10-genstructgolang0.0.3/
+  only:
+    changes:
+      - 1.1.0-golang1.13-alpine3.10-genstructgolang0.0.3/*
+      - 1.1.0-golang1.13-alpine3.10-genstructgolang0.0.3/**/*
