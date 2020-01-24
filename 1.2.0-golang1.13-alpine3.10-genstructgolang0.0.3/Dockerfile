@@ -11,7 +11,7 @@ RUN apk add --update --no-cache git && \
 
 FROM golang:1.11-alpine3.8 AS BuilderCompileDeamon
 
-ENV VERSION_COMPILE_DEAMON=v.1.2.0
+ENV VERSION_COMPILE_DEAMON=v1.2.0
 
 WORKDIR /go/src/github.com/mvochoa
 RUN apk add --update --no-cache git && \
