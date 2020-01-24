@@ -11,11 +11,11 @@ RUN apk add --update --no-cache git && \
 
 FROM golang:1.11-alpine3.8 AS BuilderCompileDeamon
 
-ENV VERSION_COMPILE_DEAMON=v.1.1.0
+ENV VERSION_COMPILE_DEAMON=v.1.2.0
 
-WORKDIR /go/src/github.com/githubnemo
+WORKDIR /go/src/github.com/mvochoa
 RUN apk add --update --no-cache git && \
-    git clone https://github.com/githubnemo/CompileDaemon.git && \
+    git clone https://github.com/mvochoa/CompileDaemon.git && \
     cd CompileDaemon/ && \
     git checkout ${VERSION_COMPILE_DEAMON} && \
     go get github.com/fatih/color github.com/fsnotify/fsnotify && \
