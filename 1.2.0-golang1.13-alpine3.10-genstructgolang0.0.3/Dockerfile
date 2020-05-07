@@ -22,6 +22,7 @@ RUN apk add --update --no-cache git && \
     go install
 
 FROM golang:1.13-alpine3.10
+LABEL maintainer="mario@mvochoa.com"
 
 COPY genstruct.sh /usr/local/bin/genstruct
 COPY docker-entrypoint.sh /usr/local/bin/

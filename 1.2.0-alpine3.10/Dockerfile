@@ -10,6 +10,7 @@ RUN git clone https://github.com/mvochoa/CompileDaemon.git && \
     go install
 
 FROM alpine:3.10
+LABEL maintainer="mario@mvochoa.com"
 
 COPY --from=builder /go/bin/CompileDaemon /usr/local/bin/gomon
 
