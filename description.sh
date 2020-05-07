@@ -1,8 +1,8 @@
 #!/bin/sh
 
 # Set the default path to README.md
-TAG=$(echo $CI_JOB_NAME | sed 's/.*:/\1/')
-SED="s/\]($TAG/\]($(echo $CI_PROJECT_URL | sed 's/\//\\\//g')\/-\/blob\/master\/$TAG/g"
+REPO_URL="$(echo $CI_PROJECT_URL/-/blob/master/ | sed 's/\//\\\//g')"
+SED="s/\(\[.*\]\)(\(.*\/Dockerfile\))/\1($REPO_URL\2)/g"
 cat README.md | sed $SED > DESCRIPTION.md
 README_FILEPATH=${README_FILEPATH:="./DESCRIPTION.md"}
 
@@ -19,12 +19,11 @@ TOKEN=$(curl -s -H "Content-Type: application/json" -X POST -d "${LOGIN_PAYLOAD}
 
 # Send a PATCH request to update the description of the repository
 echo "Sending PATCH request"
-REPO_URL="https://hub.docker.com/v2/repositories/$1/"
-RESPONSE_CODE=$(curl -s --write-out %{response_code} --output /dev/null -H "Authorization: JWT ${TOKEN}" -X PATCH --data-urlencode full_description@${README_FILEPATH} ${REPO_URL})
+DOCKER_REPO_URL="https://hub.docker.com/v2/repositories/$1/"
+RESPONSE_CODE=$(curl -s -w %{response_code} --output response.log -H "Authorization: JWT ${TOKEN}" -X PATCH --data-urlencode full_description@${README_FILEPATH} ${DOCKER_REPO_URL})
 echo "Received response code: $RESPONSE_CODE"
 
-if [[ "$RESPONSE_CODE" == "200" ]]; then
-  exit 0
-else
+if [[ "$RESPONSE_CODE" != "200" ]]; then
+  cat response.log | jq
   exit 1
 fi
