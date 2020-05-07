@@ -1,6 +1,6 @@
 # Terraform
 
-Docker image of gomon [https://hub.docker.com/r/mvochoa/gomon](https://hub.docker.com/r/mvochoa/gomon)
+Docker images with gomon
 
 ## Supported tags and respective Dockerfile links
 

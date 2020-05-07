@@ -10,7 +10,6 @@ RUN git clone https://github.com/githubnemo/CompileDaemon.git && \
     go install
 
 FROM golang:1.11.1
-MAINTAINER mario@mvochoa.com
 
 COPY --from=builder /go/bin/CompileDaemon /usr/local/bin/gomon
 

@@ -22,7 +22,6 @@ RUN apk add --update --no-cache git && \
     go install
 
 FROM golang:1.13-alpine3.10
-MAINTAINER mario@mvochoa.com
 
 COPY genstruct.sh /usr/local/bin/genstruct
 COPY docker-entrypoint.sh /usr/local/bin/
@@ -34,4 +33,5 @@ RUN chmod +x /usr/local/bin/gomon && \
     chmod +x /usr/local/bin/genstruct && \
     chmod +x /usr/local/bin/docker-entrypoint.sh && \
     chmod +x /usr/local/bin/genstructgraphql
+
 ENTRYPOINT ["sh", "/usr/local/bin/docker-entrypoint.sh"]

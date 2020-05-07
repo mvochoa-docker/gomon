@@ -11,7 +11,6 @@ RUN apk add --update --no-cache git && \
     go install
 
 FROM golang:1.11-alpine3.8
-MAINTAINER mario@mvochoa.com
 
 COPY docker-entrypoint.sh /usr/local/bin/
 COPY --from=builder /go/bin/CompileDaemon /usr/local/bin/gomon
