@@ -12,6 +12,9 @@
     - docker login -u $CI_DOCKER_USER -p $CI_DOCKER_PASSWORD
     - docker tag $CI_JOB_NAME mvochoa/$CI_JOB_NAME
     - docker push mvochoa/$CI_JOB_NAME
+  after_script:
+    - apk add --update curl jq
+    - ./description.sh mvochoa/$(echo $CI_JOB_NAME | sed 's/:.*/\1/')
   tags:
     - docker
 
