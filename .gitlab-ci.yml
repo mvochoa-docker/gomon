@@ -13,7 +13,7 @@
     - docker tag $CI_JOB_NAME mvochoa/$CI_JOB_NAME
     - docker push mvochoa/$CI_JOB_NAME
   after_script:
-    - apk add --update curl jq
+    - apk add --update curl jq bash
     - ./description.sh mvochoa/$(echo $CI_JOB_NAME | sed 's/:.*/\1/')
   tags:
     - docker

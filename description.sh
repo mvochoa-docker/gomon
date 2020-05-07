@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Set the default path to README.md
 REPO_URL="$(echo $CI_PROJECT_URL/-/blob/master/ | sed 's/\//\\\//g')"
