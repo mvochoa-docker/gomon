@@ -21,13 +21,13 @@
 gomon:latest:
   extends: .docker
   before_script:
-    - cd 1.2.0-golang1.13-alpine3.10-genstructgolang0.0.3/
+    - cd 1.2.0-golang1.13-alpine3.10-genstructgolang0.0.4/
   only:
     refs:
       - master
     changes:
-      - 1.2.0-golang1.13-alpine3.10-genstructgolang0.0.3/*
-      - 1.2.0-golang1.13-alpine3.10-genstructgolang0.0.3/**/*
+      - 1.2.0-golang1.13-alpine3.10-genstructgolang0.0.4/*
+      - 1.2.0-golang1.13-alpine3.10-genstructgolang0.0.4/**/*
 
 gomon:1.2.0-alpine3.10:
   extends: .docker
@@ -72,3 +72,14 @@ gomon:1.2.0-golang1.13-alpine3.10-genstructgolang0.0.3:
     changes:
       - 1.2.0-golang1.13-alpine3.10-genstructgolang0.0.3/*
       - 1.2.0-golang1.13-alpine3.10-genstructgolang0.0.3/**/*
+
+gomon:1.2.0-golang1.13-alpine3.10-genstructgolang0.0.4:
+  extends: .docker
+  before_script:
+    - cd 1.2.0-golang1.13-alpine3.10-genstructgolang0.0.4/
+  only:
+    refs:
+      - master
+    changes:
+      - 1.2.0-golang1.13-alpine3.10-genstructgolang0.0.4/*
+      - 1.2.0-golang1.13-alpine3.10-genstructgolang0.0.4/**/*
