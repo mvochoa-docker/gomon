@@ -1,5 +1,4 @@
 FROM golang:1.11.1 AS builder
-
 ENV VERSION_COMPILE_DEAMON=v1.2.0
 
 WORKDIR /go/src/github.com/mvochoa
