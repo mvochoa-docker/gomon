@@ -1,8 +1,10 @@
 FROM golang:1.11.1 AS builder
-ENV VERSION_COMPILE_DEAMON=v1.2.0
 
-WORKDIR /go/src/github.com/mvochoa
-RUN git clone https://github.com/mvochoa/CompileDaemon.git && \
+ENV VERSION_COMPILE_DEAMON=v1.2.0
+ENV GO111MODULE=off
+
+WORKDIR /go/src/github.com/githubnemo
+RUN git clone https://github.com/githubnemo/CompileDaemon.git && \
     cd CompileDaemon/ && \
     git checkout ${VERSION_COMPILE_DEAMON} && \
     go get github.com/fatih/color github.com/fsnotify/fsnotify && \
