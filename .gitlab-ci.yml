@@ -10,6 +10,7 @@ stages:
   variables:
     DOCKER_HOST: docker:2375
   script:
+    - export REPO=$(echo $CI_JOB_NAME | sed 's/:.*/\1/')
     - docker build -t $CI_JOB_NAME .
     - docker login -u $CI_DOCKER_GITLAB_USER -p $CI_DOCKER_GITLAB_PASSWORD $CI_REGISTRY
     - docker tag $CI_JOB_NAME registry.gitlab.com/mvochoa-docker/$CI_JOB_NAME
@@ -20,6 +21,85 @@ stages:
     - while [ $# -gt 0 ]; do docker tag $CI_JOB_NAME mvochoa/$REPO:$1; docker push mvochoa/$REPO:$1; shift; done;
   tags:
     - docker
+
+gomon:1.2.1-golang1.14-alpine3.12:
+  extends: .docker
+  before_script:
+    - cd 1.2.1-golang1.14-alpine3.12/
+    - set -- 1.2.1 1.2.1-golang1.14 latest
+  only:
+    refs:
+      - master
+    changes:
+      - 1.2.1-golang1.14-alpine3.12/*
+      - 1.2.1-golang1.14-alpine3.12/**/*
+
+gomon:1.2.0-golang1.14-alpine3.12:
+  extends: .docker
+  before_script:
+    - cd 1.2.0-golang1.14-alpine3.12/
+    - set -- 1.2.0 1.2.0-golang1.14
+  only:
+    refs:
+      - master
+    changes:
+      - 1.2.0-golang1.14-alpine3.12/*
+      - 1.2.0-golang1.14-alpine3.12/**/*
+
+gomon:1.2.0-golang1.13-alpine3.10-genstructgolang0.0.4:
+  extends: .docker
+  before_script:
+    - cd 1.2.0-golang1.13-alpine3.10-genstructgolang0.0.4/
+  only:
+    refs:
+      - master
+    changes:
+      - 1.2.0-golang1.13-alpine3.10-genstructgolang0.0.4/*
+      - 1.2.0-golang1.13-alpine3.10-genstructgolang0.0.4/**/*
+
+gomon:1.2.0-golang1.13-alpine3.10-genstructgolang0.0.3:
+  extends: .docker
+  before_script:
+    - cd 1.2.0-golang1.13-alpine3.10-genstructgolang0.0.3/
+  only:
+    refs:
+      - master
+    changes:
+      - 1.2.0-golang1.13-alpine3.10-genstructgolang0.0.3/*
+      - 1.2.0-golang1.13-alpine3.10-genstructgolang0.0.3/**/*
+
+gomon:1.1.0-golang1.11-alpine3.8:
+  extends: .docker
+  before_script:
+    - cd 1.1.0-golang1.11-alpine3.8/
+  only:
+    refs:
+      - master
+    changes:
+      - 1.1.0-golang1.11-alpine3.8/*
+      - 1.1.0-golang1.11-alpine3.8/**/*
+
+gomon:1.1.0-golang1.11.1:
+  extends: .docker
+  before_script:
+    - cd 1.1.0-golang1.11.1/
+  only:
+    refs:
+      - master
+    changes:
+      - 1.1.0-golang1.11.1/*
+      - 1.1.0-golang1.11.1/**/*
+
+gomon:1.2.0-alpine3.10:
+  extends: .docker
+  before_script:
+    - cd 1.2.0-alpine3.10/
+  only:
+    refs:
+      - master
+    changes:
+      - 1.2.0-alpine3.10/*
+      - 1.2.0-alpine3.10/**/*
 
 gomon:description:
   stage: publish
@@ -36,93 +116,3 @@ gomon:description:
     changes:
       - description.sh
       - README.md
-
-gomon:latest:
-  extends: .docker
-  before_script:
-    - cd 1.2.1-golang1.14-alpine3.12/
-  only:
-    refs:
-      - master
-    changes:
-      - 1.2.1-golang1.14-alpine3.12/*
-      - 1.2.1-golang1.14-alpine3.12/**/*
-
-gomon:1.2.0-alpine3.10:
-  extends: .docker
-  before_script:
-    - cd 1.2.0-alpine3.10/
-  only:
-    refs:
-      - master
-    changes:
-      - 1.2.0-alpine3.10/*
-      - 1.2.0-alpine3.10/**/*
-
-gomon:1.1.0-golang1.11.1:
-  extends: .docker
-  before_script:
-    - cd 1.1.0-golang1.11.1/
-  only:
-    refs:
-      - master
-    changes:
-      - 1.1.0-golang1.11.1/*
-      - 1.1.0-golang1.11.1/**/*
-
-gomon:1.1.0-golang1.11-alpine3.8:
-  extends: .docker
-  before_script:
-    - cd 1.1.0-golang1.11-alpine3.8/
-  only:
-    refs:
-      - master
-    changes:
-      - 1.1.0-golang1.11-alpine3.8/*
-      - 1.1.0-golang1.11-alpine3.8/**/*
-
-gomon:1.2.0-golang1.13-alpine3.10-genstructgolang0.0.3:
-  extends: .docker
-  before_script:
-    - cd 1.2.0-golang1.13-alpine3.10-genstructgolang0.0.3/
-  only:
-    refs:
-      - master
-    changes:
-      - 1.2.0-golang1.13-alpine3.10-genstructgolang0.0.3/*
-      - 1.2.0-golang1.13-alpine3.10-genstructgolang0.0.3/**/*
-
-gomon:1.2.0-golang1.13-alpine3.10-genstructgolang0.0.4:
-  extends: .docker
-  before_script:
-    - cd 1.2.0-golang1.13-alpine3.10-genstructgolang0.0.4/
-  only:
-    refs:
-      - master
-    changes:
-      - 1.2.0-golang1.13-alpine3.10-genstructgolang0.0.4/*
-      - 1.2.0-golang1.13-alpine3.10-genstructgolang0.0.4/**/*
-
-gomon:1.2.0-golang1.14-alpine3.12:
-  extends: .docker
-  before_script:
-    - cd 1.2.0-golang1.14-alpine3.12/
-    - set -- 1.2.0 1.2.0-golang1.14
-  only:
-    refs:
-      - master
-    changes:
-      - 1.2.0-golang1.14-alpine3.12/*
-      - 1.2.0-golang1.14-alpine3.12/**/*
-
-gomon:1.2.1-golang1.14-alpine3.12:
-  extends: .docker
-  before_script:
-    - cd 1.2.1-golang1.14-alpine3.12/
-    - set -- 1.2.1 1.2.1-golang1.14
-  only:
-    refs:
-      - master
-    changes:
-      - 1.2.1-golang1.14-alpine3.12/*
-      - 1.2.1-golang1.14-alpine3.12/**/*
