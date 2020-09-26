@@ -23,7 +23,7 @@ DOCKER_REPO_URL="https://hub.docker.com/v2/repositories/$1/"
 RESPONSE_CODE=$(curl -s -w %{response_code} --output response.log -H "Authorization: JWT ${TOKEN}" -X PATCH --data-urlencode full_description@${README_FILEPATH} ${DOCKER_REPO_URL})
 echo "Received response code: $RESPONSE_CODE"
 
-cat response.log | jq
 if [[ "$RESPONSE_CODE" != "200" ]]; then
+  cat response.log | jq
   exit 1
 fi

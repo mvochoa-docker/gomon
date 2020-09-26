@@ -1,4 +1,9 @@
+stages:
+  - build
+  - publish
+
 .docker:
+  stage: build
   image: docker:stable
   services:
     - docker:stable-dind
@@ -13,11 +18,24 @@
     - docker tag $CI_JOB_NAME mvochoa/$CI_JOB_NAME
     - docker push mvochoa/$CI_JOB_NAME
     - while [ $# -gt 0 ]; do docker tag $CI_JOB_NAME mvochoa/$REPO:$1; docker push mvochoa/$REPO:$1; shift; done;
-  after_script:
+  tags:
+    - docker
+
+gomon:description:
+  stage: publish
+  image: alpine:3.12
+  before_script:
     - apk add --update curl jq bash
+  script:
     - ./description.sh mvochoa/$(echo $CI_JOB_NAME | sed 's/:.*/\1/')
   tags:
     - docker
+  only:
+    refs:
+      - master
+    changes:
+      - description.sh
+      - README.md
 
 gomon:latest:
   extends: .docker
